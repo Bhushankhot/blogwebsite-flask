@@ -1,0 +1,21 @@
+{
+    "params":
+    {
+        "local_server":"True",
+        "local_uri":"mysql://root:@localhost/blogwithus",
+        "prod_uri":"mysql: //root:@localhost/blogwithus",
+        "gmail-user":"-",
+        "gmail-password":"-",
+        "about-text": "Hii my name is bhushan khot and i am creating blog website as mini project",
+        "blog_name": "BlogwithUs",
+        "login_image": "login.jpg",
+        "admin_user": "admin",
+        "admin_password": "qwerty",
+        "no-of-posts": 2,
+        "upload_location":"D:\\python project folder\\static\\img"
+
+
+    }
+
+
+}
