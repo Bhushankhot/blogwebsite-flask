@@ -53,6 +53,7 @@ class Posts(db.Model):
 
 @app.route("/")
 def home():
+    flash("Hello all, Welcome to our website", "success")
     posts = Posts.query.filter_by().all()
     last = math.ceil(len(posts)/int(params['no-of-posts']))
     # [0: params['no_of_posts']]
@@ -131,6 +132,7 @@ def edit(sno):
                              tagline=tline, img_file=img_file, date=date)
                 db.session.add(post)
                 db.session.commit()
+                flash("New post added successfully!", "success")
             else:
                 post = Posts.query.filter_by(sno=sno).first()
                 post.title = box_title
@@ -140,6 +142,7 @@ def edit(sno):
                 post.img_file = img_file
                 post.date = date
                 db.session.commit()
+                flash("Post edited successfully!", "success")
                 return redirect('/edit/'+sno)
         post = Posts.query.filter_by(sno=sno).first()
         return render_template('edit.html', params=params, post=post, sno=sno)
@@ -172,11 +175,13 @@ def post_route(post_slug):
 def uploader():
     if('user' in session and session['user'] == params['admin_user']):
         if(request.method == 'POST'):
+
             f = request.files['file1']
             f.save(os.path.join(
                 app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            flash("Uploaded successfully", "success")
 
-            return "Uploaded successfully"
+            return redirect('/dashboard')
 
 
 @app.route("/contact", methods=['GET', 'POST'])
@@ -196,6 +201,7 @@ def contact():
                           recipients=[params['gmail-user']],
                           body=message + "\n" + phone
                           )
+        flash("Thank you for submitting your details. We will get back to you soon!", "success")
 
     return render_template('contact.html', params=params)
 
